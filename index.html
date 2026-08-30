@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krish Delights — Indulge in the Delight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0908;
+    --charcoal:#161310;
+    --charcoal-2:#1f1b16;
+    --cream:#f4ede1;
+    --muted:#a89a87;
+    --red:#d43a3a;
+    --red-glow:#ff5c5c;
+    --blue:#3aa6d4;
+    --gold:#e2a63b;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Poppins',sans-serif;
+    font-weight:800;
+    letter-spacing:-0.02em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  ::selection{background:var(--red);color:var(--cream);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:26px 6vw;
+    transition:padding .4s var(--ease), background .4s var(--ease), backdrop-filter .4s var(--ease), border-color .4s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    padding:14px 6vw;
+    background:rgba(10,9,8,.72);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid rgba(244,237,225,.08);
+  }
+  .logo{
+    font-family:'Poppins',sans-serif;
+    font-weight:900;
+    font-size:20px;
+    letter-spacing:.02em;
+    display:flex;align-items:baseline;gap:6px;
+  }
+  .logo span{color:var(--red);}
+  nav.links{display:flex;gap:38px;}
+  nav.links a{
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    position:relative;
+    color:var(--cream);
+    opacity:.85;
+    transition:opacity .3s;
+  }
+  nav.links a::after{
+    content:'';position:absolute;left:0;bottom:-6px;width:0;height:1.5px;
+    background:var(--red);transition:width .35s var(--ease);
+  }
+  nav.links a:hover{opacity:1;}
+  nav.links a:hover::after{width:100%;}
+  .nav-cta{
+    display:none;
+  }
+  @media(max-width:760px){
+    nav.links{gap:20px;}
+    nav.links a{font-size:11px;}
+    .logo{font-size:16px;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:100svh;
+    min-height:560px;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background-image:linear-gradient(180deg, rgba(10,9,8,.35) 0%, rgba(10,9,8,.55) 40%, rgba(10,9,8,.97) 100%), url('assets/8484.jpg');
+    background-size:cover;
+    background-position:center 30%;
+    transform:scale(1.15);
+    filter:saturate(1.1) contrast(1.05);
+  }
+  .hero-grain{
+    position:absolute;inset:0;
+    background-image:radial-gradient(circle at 20% 20%, rgba(212,58,58,.10), transparent 45%),
+                      radial-gradient(circle at 85% 75%, rgba(58,166,212,.10), transparent 45%);
+    pointer-events:none;
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    width:100%;
+    padding:0 6vw 9vw;
+  }
+  .hero-eyebrow{
+    font-size:12px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:18px;
+    opacity:0;
+  }
+  .hero h1{
+    font-size:clamp(46px, 9vw, 118px);
+    line-height:.95;
+    max-width:14ch;
+  }
+  .hero h1 .line{overflow:hidden;display:block;}
+  .hero h1 .word{
+    display:inline-block;
+    transform:translateY(115%);
+  }
+  .hero-sub{
+    margin-top:26px;
+    font-size:clamp(16px,2vw,20px);
+    color:var(--muted);
+    max-width:480px;
+    font-weight:400;
+    opacity:0;
+    transform:translateY(20px);
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:38px;
+    padding:17px 34px;
+    background:var(--red);
+    color:var(--cream);
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    border:none;
+    border-radius:100px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(20px);
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .35s;
+    box-shadow:0 0 0 0 rgba(212,58,58,.5);
+  }
+  .btn:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 12px 34px -6px rgba(212,58,58,.65);
+    background:var(--red-glow);
+  }
+  .btn svg{width:16px;height:16px;transition:transform .35s var(--ease);}
+  .btn:hover svg{transform:translate(3px,-3px);}
+
+  .scroll-cue{
+    position:absolute;
+    bottom:26px;right:6vw;
+    z-index:2;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    color:var(--muted);
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    opacity:0;
+  }
+  .scroll-cue .line{width:1px;height:46px;background:linear-gradient(var(--muted), transparent);position:relative;overflow:hidden;}
+  .scroll-cue .line::after{
+    content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;
+    background:linear-gradient(var(--gold), transparent);
+    animation:scrollDown 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollDown{
+    0%{top:-100%;} 60%{top:100%;} 100%{top:100%;}
+  }
+
+  /* ---------- DRIP DIVIDER ---------- */
+  .drip{
+    position:relative;
+    width:100%;
+    height:64px;
+    display:block;
+    margin-top:-2px;
+  }
+  .drip svg{width:100%;height:100%;display:block;}
+
+  /* ---------- SECTION shared ---------- */
+  section{position:relative;padding:120px 6vw;}
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:18px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{
+    content:'';width:28px;height:1.5px;background:currentColor;display:block;
+  }
+  .section-title{
+    font-size:clamp(32px,4.4vw,58px);
+    line-height:1.05;
+    max-width:14ch;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    background:var(--charcoal);
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:8vw;
+    align-items:center;
+  }
+  .about .eyebrow{color:var(--gold);}
+  .about p.lead{
+    margin-top:26px;
+    font-size:19px;
+    line-height:1.65;
+    color:#d8cdbd;
+    max-width:46ch;
+  }
+  .about-stats{
+    display:flex;gap:50px;
+    margin-top:48px;
+  }
+  .about-stats div b{
+    display:block;
+    font-family:'Poppins',sans-serif;
+    font-size:34px;
+    font-weight:800;
+    color:var(--cream);
+  }
+  .about-stats div span{
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .about-visual{
+    position:relative;
+    border-radius:22px;
+    overflow:hidden;
+    aspect-ratio:4/5;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,.7);
+  }
+  .about-visual img{
+    width:100%;height:100%;object-fit:cover;
+    transform:scale(1.08);
+  }
+  .about-visual::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 55%, rgba(10,9,8,.75));
+  }
+  .about-visual-tag{
+    position:absolute;bottom:22px;left:22px;z-index:2;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.03em;
+    color:var(--cream);
+    background:rgba(10,9,8,.5);
+    backdrop-filter:blur(6px);
+    padding:9px 16px;
+    border-radius:100px;
+    border:1px solid rgba(244,237,225,.15);
+  }
+  @media(max-width:900px){
+    .about{grid-template-columns:1fr;gap:56px;}
+    .about-stats{gap:34px;}
+  }
+
+  /* ---------- TREATS ---------- */
+  .treats{background:var(--black);}
+  .treats-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:56px;
+    gap:24px;flex-wrap:wrap;
+  }
+  .treats .eyebrow{color:var(--blue);}
+  .treats-note{
+    max-width:340px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+  }
+  .treats-track-wrap{
+    overflow-x:auto;
+    overflow-y:hidden;
+    margin:0 -6vw;
+    padding:10px 6vw 30px;
+    scrollbar-width:thin;
+    scrollbar-color:var(--red) transparent;
+  }
+  .treats-track-wrap::-webkit-scrollbar{height:6px;}
+  .treats-track-wrap::-webkit-scrollbar-thumb{background:var(--red);border-radius:10px;}
+  .treats-track{
+    display:flex;
+    gap:26px;
+    width:max-content;
+  }
+  .treat-card{
+    position:relative;
+    width:270px;
+    flex:0 0 auto;
+    border-radius:18px;
+    overflow:hidden;
+    background:var(--charcoal-2);
+    aspect-ratio:3/4;
+    cursor:default;
+    transform:translateY(0);
+    transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  }
+  .treat-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 26px 50px -14px rgba(0,0,0,.75), 0 0 0 1px rgba(244,237,225,.08);
+  }
+  .treat-card img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .7s var(--ease), filter .7s var(--ease);
+  }
+  .treat-card:hover img{transform:scale(1.08);}
+  .treat-card::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 45%, rgba(10,9,8,.92) 100%);
+  }
+  .treat-info{
+    position:absolute;left:0;right:0;bottom:0;z-index:2;
+    padding:20px;
+  }
+  .treat-info .tag{
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:600;
+    padding:4px 10px;border-radius:100px;
+    display:inline-block;margin-bottom:10px;
+  }
+  .tag.red{background:rgba(212,58,58,.22);color:#ff9d9d;border:1px solid rgba(212,58,58,.4);}
+  .tag.blue{background:rgba(58,166,212,.22);color:#9fdcf5;border:1px solid rgba(58,166,212,.4);}
+  .tag.gold{background:rgba(226,166,59,.22);color:#f6cf85;border:1px solid rgba(226,166,59,.4);}
+  .treat-info h3{
+    font-size:19px;font-weight:700;line-height:1.2;
+  }
+  .treat-info p{
+    font-size:13px;color:var(--muted);margin-top:4px;
+  }
+
+  /* mini grid below the slider — glass fridge full shot */
+  .treats-strip{
+    margin-top:70px;
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:24px;
+  }
+  .strip-card{
+    border-radius:18px;overflow:hidden;position:relative;
+    aspect-ratio:16/10;
+  }
+  .strip-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
+  .strip-card:hover img{transform:scale(1.06);}
+  .strip-card .cap{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:20px 24px;
+    background:linear-gradient(180deg,transparent, rgba(10,9,8,.9));
+    font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;
+  }
+  @media(max-width:800px){
+    .treats-strip{grid-template-columns:1fr;}
+  }
+
+  /* ---------- CONNECT ---------- */
+  .connect{
+    background:var(--charcoal);
+    text-align:center;
+  }
+  .connect .eyebrow{justify-content:center;color:var(--red);}
+  .connect .eyebrow::before{display:none;}
+  .connect h2{margin:0 auto;}
+  .connect-sub{
+    color:var(--muted);
+    max-width:50ch;
+    margin:22px auto 0;
+    font-size:17px;
+    line-height:1.6;
+  }
+  .connect-cards{
+    display:flex;justify-content:center;gap:26px;
+    margin-top:56px;
+    flex-wrap:wrap;
+  }
+  .c-card{
+    width:280px;
+    padding:34px 28px;
+    background:var(--charcoal-2);
+    border:1px solid rgba(244,237,225,.08);
+    border-radius:20px;
+    text-align:left;
+    transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
+  }
+  .c-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(244,237,225,.2);
+    box-shadow:0 20px 46px -18px rgba(0,0,0,.8);
+  }
+  .c-card .icon{
+    width:46px;height:46px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:22px;
+  }
+  .c-card.ig .icon{background:linear-gradient(135deg,#e2a63b,#d43a3a);}
+  .c-card.map .icon{background:var(--blue);}
+  .c-card .icon svg{width:22px;height:22px;stroke:var(--black);}
+  .c-card h3{font-size:18px;margin-bottom:8px;}
+  .c-card p{font-size:14px;color:var(--muted);line-height:1.5;}
+  .c-card .go{
+    margin-top:18px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    display:flex;align-items:center;gap:6px;color:var(--cream);
+  }
+  .c-card .go svg{width:13px;height:13px;transition:transform .3s var(--ease);}
+  .c-card:hover .go svg{transform:translate(3px,-3px);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--black);
+    padding:60px 6vw 34px;
+    border-top:1px solid rgba(244,237,225,.08);
+  }
+  .foot-top{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;
+    padding-bottom:40px;
+  }
+  .foot-logo{
+    font-family:'Poppins',sans-serif;font-weight:900;font-size:24px;
+  }
+  .foot-logo span{color:var(--red);}
+  .foot-tag{color:var(--muted);font-size:14px;margin-top:10px;max-width:32ch;}
+  .foot-col h4{
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;
+  }
+  .foot-col p, .foot-col a{
+    font-size:14px;line-height:1.9;color:#d8cdbd;
+    display:block;
+  }
+  .foot-col a:hover{color:var(--gold);}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:24px;border-top:1px solid rgba(244,237,225,.08);
+    font-size:12px;color:var(--muted);flex-wrap:wrap;gap:12px;
+  }
+  .foot-socials{display:flex;gap:16px;}
+  .foot-socials a{
+    width:36px;height:36px;border-radius:50%;
+    border:1px solid rgba(244,237,225,.16);
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .3s, transform .3s, background .3s;
+  }
+  .foot-socials a:hover{border-color:var(--red);background:rgba(212,58,58,.12);transform:translateY(-3px);}
+  .foot-socials svg{width:16px;height:16px;}
+
+  [data-reveal]{opacity:0; transform:translateY(36px);}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <a class="logo" href="#home">KRISH <span>DELIGHTS</span></a>
+  <nav class="links">
+    <a href="#home">Home</a>
+    <a href="#treats">Our Treats</a>
+    <a href="#find-us">Find Us</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="heroEyebrow">Bengaluru's Late-Night Sweet Spot</div>
+    <h1 id="heroTitle" aria-label="Indulge in the Delight.">
+      <span class="line"><span class="word">Indulge</span></span>
+      <span class="line"><span class="word">in&nbsp;the</span></span>
+      <span class="line"><span class="word">Delight.</span></span>
+    </h1>
+    <p class="hero-sub" id="heroSub">Premium ice creams &amp; snacks, scooped fresh every night in the heart of Bengaluru.</p>
+    <button class="btn" id="heroBtn" onclick="document.getElementById('treats').scrollIntoView({behavior:'smooth'})">
+      Explore Our Menu
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+    </button>
+  </div>
+  <div class="scroll-cue" id="scrollCue"><span>Scroll</span><span class="line"></span></div>
+</section>
+
+<div class="drip" style="background:var(--black);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path fill="#161310" d="M0,0 L1200,0 L1200,20 C1150,45 1100,10 1050,28 C1000,46 950,15 900,30 C850,45 800,12 750,26 C700,40 650,14 600,32 C550,50 500,10 450,28 C400,46 350,15 300,30 C250,45 200,12 150,28 C100,44 50,14 0,26 Z"/>
+  </svg>
+</div>
+
+<section class="about" id="about">
+  <div data-reveal>
+    <div class="eyebrow">Neighborhood Favorite</div>
+    <h2 class="section-title">A little shop with<br>a serious sweet tooth.</h2>
+    <p class="lead">Tucked into a Bengaluru side street, Krish Delights has become the place people detour to after dinner &mdash; for a scoop, a stick, or a whole tub to take home. Freezers packed edge to edge, a shelf that never seems to empty, and a light that stays on well past everyone else's.</p>
+    <div class="about-stats">
+      <div><b>50+</b><span>Flavours &amp; Treats</span></div>
+      <div><b>Late</b><span>Night Hours</span></div>
+      <div><b>100%</b><span>Cold Storage Fresh</span></div>
+    </div>
+  </div>
+  <div class="about-visual" data-reveal>
+    <img src="assets/8486.jpg" alt="Glass-door freezer at Krish Delights stocked with drinks and snacks">
+    <div class="about-visual-tag">Always Stocked, Always Cold</div>
+  </div>
+</section>
+
+<div class="drip" style="background:var(--charcoal);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path fill="#0a0908" d="M0,0 L1200,0 L1200,18 C1160,42 1110,8 1060,24 C1010,40 960,16 910,30 C860,44 810,10 760,26 C710,42 660,14 610,28 C560,42 510,12 460,26 C410,40 360,16 310,30 C260,44 210,12 160,26 C110,40 60,14 0,24 Z"/>
+  </svg>
+</div>
+
+<section class="treats" id="treats">
+  <div class="treats-head" data-reveal>
+    <div>
+      <div class="eyebrow">Our Treats</div>
+      <h2 class="section-title">Everything worth<br>the freezer burn.</h2>
+    </div>
+    <p class="treats-note">Havmor tubs, snap-fresh cones, chocobars, and the Amul favourites everyone asks for by name. Drag to see the full lineup.</p>
+  </div>
+
+  <div class="treats-track-wrap">
+    <div class="treats-track">
+      <div class="treat-card" data-reveal>
+        <img src="assets/8489.jpg" alt="Havmor Chocolate and American Nuts ice cream tubs">
+        <div class="treat-info">
+          <span class="tag red">Tub</span>
+          <h3>Chocolate &amp; American Nuts</h3>
+          <p>Rich, indulgent, straight from the Havmor family favourites</p>
+        </div>
+      </div>
+      <div class="treat-card" data-reveal>
+        <img src="assets/8485.jpg" alt="Zulubar Dark Crunch and assorted ice cream wrappers">
+        <div class="treat-info">
+          <span class="tag gold">Bar</span>
+          <h3>Zulubar Dark Crunch</h3>
+          <p>Deep dark chocolate shell, crunch in every bite</p>
+        </div>
+      </div>
+      <div class="treat-card" data-reveal>
+        <img src="assets/8487.jpg" alt="Chest freezer basket packed with sticks and ice cream tubs">
+        <div class="treat-info">
+          <span class="tag blue">Freezer Pick</span>
+          <h3>The Full Freezer</h3>
+          <p>Wrapped sticks, cups, and tubs stacked deep and cold</p>
+        </div>
+      </div>
+      <div class="treat-card" data-reveal>
+        <img src="assets/8488.jpg" alt="Shelf of Chocobar tubs and ice cream boxes">
+        <div class="treat-info">
+          <span class="tag red">Shelf Favourite</span>
+          <h3>Chocobar &amp; Cups</h3>
+          <p>The mesh basket regulars reach for first</p>
+        </div>
+      </div>
+      <div class="treat-card" data-reveal>
+        <img src="assets/8489.jpg" alt="Basket of round ice cream cups in assorted colours" style="object-position:right;">
+        <div class="treat-info">
+          <span class="tag gold">Assorted</span>
+          <h3>Rainbow of Cups</h3>
+          <p>A flavour for every craving, colour-coded and cold</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="treats-strip">
+    <div class="strip-card" data-reveal>
+      <img src="assets/8486.jpg" alt="Full glass-door freezer of drinks and snacks at Krish Delights">
+      <div class="cap">The cold drinks &amp; snack tower</div>
+    </div>
+    <div class="strip-card" data-reveal>
+      <img src="assets/8484.jpg" alt="Krish Delights shopfront with hanging snack packets">
+      <div class="cap">Snacks line the entrance, floor to ceiling</div>
+    </div>
+  </div>
+</section>
+
+<div class="drip" style="background:var(--black);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <path fill="#161310" d="M0,0 L1200,0 L1200,20 C1150,44 1100,10 1050,28 C1000,46 950,14 900,30 C850,46 800,12 750,28 C700,44 650,14 600,30 C550,46 500,10 450,28 C400,46 350,15 300,30 C250,45 200,12 150,28 C100,44 50,14 0,26 Z"/>
+  </svg>
+</div>
+
+<section class="connect" id="find-us">
+  <div class="eyebrow" data-reveal>Get In Touch</div>
+  <h2 class="section-title" data-reveal style="margin:0 auto;">Come see us. <br>Or find us online.</h2>
+  <p class="connect-sub" data-reveal>Follow along for the newest flavours the moment they land in the freezer, or drop a pin and swing by tonight.</p>
+  <div class="connect-cards">
+    <a class="c-card ig" href="https://instagram.com/krish.delights" target="_blank" rel="noopener" data-reveal>
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="var(--black)" stroke="none"/></svg>
+      </div>
+      <h3>@krish.delights</h3>
+      <p>New flavours, fresh restocks, and behind-the-counter looks.</p>
+      <span class="go">Follow on Instagram <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+    </a>
+    <a class="c-card map" href="https://maps.google.com/?q=Krish+Delights+Bengaluru" target="_blank" rel="noopener" data-reveal>
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      </div>
+      <h3>Find Us on Maps</h3>
+      <p>Get directions straight to the door — open into the late hours.</p>
+      <span class="go">Open in Google Maps <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-logo">KRISH <span>DELIGHTS</span></div>
+      <p class="foot-tag">Bengaluru's neighborhood freezer full of good ideas. Ice cream, snacks, and late-night cravings, sorted.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Visit</h4>
+      <p>Bengaluru, Karnataka</p>
+      <p>Open into the late hours, daily</p>
+    </div>
+    <div class="foot-col">
+      <h4>Connect</h4>
+      <a href="https://instagram.com/krish.delights" target="_blank" rel="noopener">Instagram &#8594; @krish.delights</a>
+      <a href="https://maps.google.com/?q=Krish+Delights+Bengaluru" target="_blank" rel="noopener">Google Maps &#8594; Directions</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; <span id="year"></span> Krish Delights. All treats reserved.</span>
+    <div class="foot-socials">
+      <a href="https://instagram.com/krish.delights" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+      </a>
+      <a href="https://maps.google.com/?q=Krish+Delights+Bengaluru" target="_blank" rel="noopener" aria-label="Google Maps">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+gsap.registerPlugin(ScrollTrigger);
+
+/* Header background on scroll */
+const header = document.getElementById('siteHeader');
+ScrollTrigger.create({
+  start: 'top -60',
+  end: 99999,
+  toggleClass: {className:'scrolled', targets: header}
+});
+
+/* Hero entrance timeline */
+const tl = gsap.timeline({defaults:{ease:'power4.out'}});
+tl.to('.hero-bg', {scale:1, duration:1.8, ease:'power2.out'}, 0)
+  .to('#heroEyebrow', {opacity:1, duration:.8}, 0.15)
+  .to('.hero h1 .word', {y:'0%', duration:1.1, stagger:0.12}, 0.25)
+  .to('#heroSub', {opacity:1, y:0, duration:.9}, 0.75)
+  .to('#heroBtn', {opacity:1, y:0, duration:.9}, 0.9)
+  .to('#scrollCue', {opacity:1, duration:.9}, 1.1);
+
+/* Subtle continued hero zoom while scrolling within hero */
+gsap.to('.hero-bg', {
+  scale:1.28,
+  ease:'none',
+  scrollTrigger:{
+    trigger:'.hero',
+    start:'top top',
+    end:'bottom top',
+    scrub:true
+  }
+});
+
+/* Generic reveal-on-scroll for [data-reveal] */
+document.querySelectorAll('[data-reveal]').forEach((el)=>{
+  gsap.to(el, {
+    opacity:1, y:0, duration:1, ease:'power3.out',
+    scrollTrigger:{
+      trigger:el,
+      start:'top 88%',
+      toggleActions:'play none none reverse'
+    }
+  });
+});
+
+/* Parallax on about visual */
+gsap.to('.about-visual img', {
+  yPercent:-8,
+  ease:'none',
+  scrollTrigger:{
+    trigger:'.about-visual',
+    start:'top bottom',
+    end:'bottom top',
+    scrub:true
+  }
+});
+
+/* Treat cards: slide-in stagger driven by horizontal scroll wrapper visibility */
+gsap.utils.toArray('.treat-card').forEach((card, i)=>{
+  gsap.fromTo(card, {y:50, opacity:0}, {
+    y:0, opacity:1, duration:.9, ease:'power3.out',
+    scrollTrigger:{
+      trigger:'.treats-track-wrap',
+      start:'top 85%',
+      toggleActions:'play none none reverse'
+    },
+    delay: i * 0.08
+  });
+});
+
+/* Strip cards parallax scale */
+gsap.utils.toArray('.strip-card img').forEach((img)=>{
+  gsap.fromTo(img, {scale:1.15}, {
+    scale:1,
+    ease:'none',
+    scrollTrigger:{
+      trigger:img,
+      start:'top bottom',
+      end:'top 40%',
+      scrub:true
+    }
+  });
+});
+</script>
+</body>
+</html>
